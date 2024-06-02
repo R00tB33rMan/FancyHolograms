@@ -131,7 +131,7 @@ public final class HologramCMD extends Command {
                 return Collections.emptyList();
             }
 
-            return this.plugin.getHologramsManager().getHolograms().stream().map(hologram -> hologram.getData().getName()).filter(input -> input.toLowerCase().startsWith(args[1].toLowerCase(Locale.ROOT))).toList();
+            return this.plugin.getHologramsManager().getPersistentHolograms().stream().map(hologram -> hologram.getData().getName()).filter(input -> input.toLowerCase().startsWith(args[1].toLowerCase(Locale.ROOT))).toList();
         }
 
         final var hologram = this.plugin.getHologramsManager().getHologram(args[1]).orElse(null);
@@ -184,10 +184,9 @@ public final class HologramCMD extends Command {
                         colors.remove("default");
                     } else if (current == Hologram.TRANSPARENT) {
                         colors.remove("transparent");
-                    } else if (current instanceof NamedTextColor named) {
-                        colors.remove(named.toString());
                     } else {
-                        colors.add(current.asHexString()); // suggest the current hex value for each of use...
+                        NamedTextColor named = current.getAlpha() == 255 ? NamedTextColor.namedColor(current.asRGB()) : null;
+                        colors.add(named != null ? named.toString() : '#' + Integer.toHexString(current.asARGB()));
                     }
 
                     yield colors.stream();
