@@ -18,7 +18,7 @@ runPaper.folia.registerTask()
 allprojects {
     group = "de.oliver"
     val buildId = System.getenv("BUILD_ID")
-    version = "2.1.0" + (if (buildId != null) ".$buildId" else "")
+    version = "2.1.1" + (if (buildId != null) ".$buildId" else "")
     description = "Simple, lightweight and fast hologram plugin using display entities"
 
     repositories {
@@ -79,7 +79,7 @@ tasks {
         downloadPlugins {
 //            hangar("ViaVersion", "4.10.2-SNAPSHOT+347")
 //            hangar("ViaBackwards", "4.10.2-SNAPSHOT+208")
-//            hangar("PlaceholderAPI", "2.11.5")
+            hangar("PlaceholderAPI", "2.11.6")
         }
     }
 
